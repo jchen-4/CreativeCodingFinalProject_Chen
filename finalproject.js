@@ -1,10 +1,11 @@
-//I never figured out how to import images onto sublime, so this only works in openprocessing for now
-
 let button
 let x
 let y
 let map
 let displayMap
+var portrait
+let photo 
+let api
 
 
 function setup() {
@@ -12,11 +13,20 @@ function setup() {
 	createCanvas(1200, 600);
 	background(200);
 	//button = new Button(529, 346);
+	textSize(20);
+	textFont(myFont);
+	text("Click a dot on a state to see its senators", 300, 50);
+	rect(800, 60, 370, 520);
+
+
+
 }
 function preload() {
 map = loadImage('usmap3.png');
-	
-	alabamaA = loadJSON("https://www.opensecrets.org/api/?method=candContrib&cid=N00024817&cycle=2020&apikey=7f412b514c58c75045615ea8481c9773&output=json");
+portrait = loadImage('alabamaimageA.jpg')
+	alabamaA = loadJSON('data.json');
+	myFont = loadFont('regular[1].otf');
+	/*alabamaA = loadJSON("https://www.opensecrets.org/api/?method=candContrib&cid=N00024817&cycle=2020&apikey=7f412b514c58c75045615ea8481c9773&output=json");
 	alabamaB = loadJSON("https://www.opensecrets.org/api/?method=candContrib&cid=N00009920&cycle=2020&apikey=7f412b514c58c75045615ea8481c9773&output=json");
 	alaskaA = loadJSON("https://www.opensecrets.org/api/?method=candContrib&cid=N00026050&cycle=2020&apikey=7f412b514c58c75045615ea8481c9773&output=json");
 	alaskaB = loadJSON("https://www.opensecrets.org/api/?method=candContrib&cid=N00035774&cycle=2020&apikey=7f412b514c58c75045615ea8481c9773&output=json");
@@ -122,15 +132,16 @@ map = loadImage('usmap3.png');
 
 function draw() {
 
-	scale(0.58);
+
+scale(0.58);
 image(map, 40, 100);
 
 //button.show();
  
-if (mouseIsPressed) {
+
 //alabama
 senatorinfo(528, 545, 346, 365, alabamaA);
-senatorinfo(536, 548, 390, 400, alabamaB);
+/*senatorinfo(536, 548, 390, 400, alabamaB);
 //alaska
 senatorinfo(99, 111, 412, 427, alaskaA);
 senatorinfo(85, 99, 456, 470, alaskaB);
@@ -164,18 +175,28 @@ senatorinfo(279, 291, 484, 498, hawaiiB);
 //idaho
 senatorinfo(154, 168, 140, 152, idahoA);
 senatorinfo(185, 200, 182, 195, idahoB);	
+*/
 
-	
-} 
+
 
 
 	
 }
 
 function senatorinfo(a, b, c, d, state) {
+	if (mouseIsPressed) {
 		if (mouseX  >= a && mouseX <= b && mouseY >= c && mouseY <= d){
+		textFont(myFont);
 		textSize(30);
-			text(state.response.contributors["@attributes"].cand_name, 1500, 100);
+		text(state.response.contributors["@attributes"].cand_name, 1600, 140); 
+		text(state.response.contributors["@attributes"].cycle, 1600, 180); 
+	//	text(state.response.contributors["contributor@attributes"].total, 1500, 200); 
+		scale(0.4);
+		image(portrait, 3650, 500);	
+			
+			
+			
+}
 		
 } 
 
